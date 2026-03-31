@@ -7,7 +7,7 @@ from datetime import datetime
 numbers_dataset = Dataset("postgres://airflow-test-db.airflow-test.svc.cluster.local:5432/test_db/public/numbers")
 
 def calculate_avg():
-    hook = PostgresHook(postgres_conn_id='postgres_default')
+    hook = PostgresHook(postgres_conn_id='postgres-production')
 
     records = hook.get_records("SELECT value FROM numbers")
     values = [r[0] for r in records]
