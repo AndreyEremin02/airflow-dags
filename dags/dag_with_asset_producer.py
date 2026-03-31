@@ -19,7 +19,7 @@ def update_numbers():
 with DAG(
     dag_id="producer_dag",
     start_date=datetime(2024, 1, 1),
-    schedule_interval=None,
+    schedule=None,
     catchup=False
 ) as dag:
 
