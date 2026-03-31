@@ -4,7 +4,7 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 from datetime import datetime
 from airflow.datasets import Dataset
 
-numbers_dataset = Dataset("postgres://test_db/public/numbers")
+numbers_dataset = Dataset("postgres://airflow-test-db.airflow-test.svc.cluster.local:5432/test_db/public/numbers")
 
 def update_numbers():
     hook = PostgresHook(postgres_conn_id='postgres-production')
