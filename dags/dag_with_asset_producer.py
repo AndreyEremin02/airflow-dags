@@ -26,5 +26,5 @@ with DAG(
     update_task = PythonOperator(
         task_id="update_numbers",
         python_callable=update_numbers,
-        outlets=[numbers_dataset]  # 👈 публикуем asset
+        outlets=[numbers_dataset]
     )
