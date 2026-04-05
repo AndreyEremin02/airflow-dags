@@ -5,14 +5,7 @@ from datetime import datetime, timedelta
 import os
 
 def process_file():
-    file_path = "/opt/airflow/data/trigger.txt"
-
-    if os.path.exists(file_path):
-        with open(file_path, "r") as f:
-            content = f.read()
-        print(f"{content}")
-    else:
-        print("Error")
+    print("Processing file")
 
 
 default_args = {
