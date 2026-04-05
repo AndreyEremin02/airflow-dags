@@ -29,7 +29,8 @@ with DAG(
     dag_id="xcom_demo_dag",
     start_date=datetime(2024, 1, 1),
     schedule=None,
-    catchup=False
+    catchup=False,
+    tags=["demo"]
 ) as dag:
 
     extract_task = PythonOperator(
