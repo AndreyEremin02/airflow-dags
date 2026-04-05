@@ -4,8 +4,19 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import os
 
+FILE_PATH = "/opt/airflow/data/trigger.txt"
+
+
 def process_file():
     print("Processing file")
+
+
+def delete_file():
+    if os.path.exists(FILE_PATH):
+        os.remove(FILE_PATH)
+        print(f"File deleted: {FILE_PATH}")
+    else:
+        print("File not found, nothing to delete")
 
 
 default_args = {
@@ -13,7 +24,6 @@ default_args = {
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
 }
-
 
 with DAG(
     dag_id="file_sensor_full_demo",
@@ -26,7 +36,7 @@ with DAG(
 
     wait_for_file = FileSensor(
         task_id="wait_for_file",
-        filepath="/opt/airflow/data/trigger.txt",
+        filepath="trigger.txt",
         poke_interval=10,
         timeout=300,
         mode="reschedule",
@@ -37,4 +47,9 @@ with DAG(
         python_callable=process_file,
     )
 
-    wait_for_file >> process
+    cleanup = PythonOperator(
+        task_id="delete_file",
+        python_callable=delete_file,
+    )
+
+    wait_for_file >> process >> cleanup
